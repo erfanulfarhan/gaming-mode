@@ -1,9 +1,14 @@
 # Gaming Mode
 
-One click before playing. It quits the memory-heavy apps listed in `gaming-mode.js`, then shows which apps it closed, roughly how much memory that freed, and the free memory before and after.
+One click before playing, one click after.
+
+- **First click:** saves your open Brave tabs and closes Brave, quits the other memory-heavy apps listed in `gaming-mode.js`, and opens a fresh Safari window, the lightest browser on a Mac (about 290 MB, against several GB for Brave with tabs). It then shows what it closed and the free memory before and after.
+- **Second click:** reopens Brave with the saved tabs and the same launch flags (so its `--remote-debugging-port` comes back), reopens the apps it closed, and closes the Safari window if Gaming Mode opened it.
+
+Saved tab lists are also kept as text files in `~/Library/Application Support/Gaming Mode/`.
 
 - Apps quit normally, so anything with unsaved work still asks you to save.
-- Apps that aren't on the list stay open: Brave for the game, plus Discord, Spotify and OBS.
+- Discord, Spotify and OBS are never touched.
 - Quitting VS Code also ends any Claude Code session running in it.
 
 ## Use
@@ -18,7 +23,7 @@ Edit the `QUIT` list of bundle IDs in `gaming-mode.js`, then run `./build.sh`. T
 osascript -e 'id of app "App Name"'
 ```
 
-To see what it would close, without closing anything:
+To see what the next click would do, without changing anything:
 
 ```
 osascript -l JavaScript gaming-mode.js --dry-run
